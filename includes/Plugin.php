@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace LightweightPlugins\Enable;
 
 use LightweightPlugins\Enable\Admin\SettingsPage;
+use LightweightPlugins\Enable\CLI\Commands as CLICommands;
 use LightweightPlugins\Enable\Features\Svg;
 
 /**
@@ -24,6 +25,7 @@ final class Plugin {
 		$this->init_hooks();
 		$this->init_features();
 		$this->init_admin();
+		$this->init_cli();
 	}
 
 	/**
@@ -57,6 +59,17 @@ final class Plugin {
 	private function init_admin(): void {
 		if ( is_admin() ) {
 			new SettingsPage();
+		}
+	}
+
+	/**
+	 * Initialize CLI commands.
+	 *
+	 * @return void
+	 */
+	private function init_cli(): void {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			\WP_CLI::add_command( 'lw-enable', CLICommands::class );
 		}
 	}
 

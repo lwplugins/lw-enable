@@ -3,7 +3,7 @@ Contributors: lwplugins
 Tags: enable, svg, upload, media
 Requires at least: 6.0
 Tested up to: 6.7
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,46 @@ Part of [LW Plugins](https://lwplugins.com) - lightweight WordPress plugins.
 
 Or: `composer require lwplugins/lw-enable`
 
+== WP-CLI ==
+
+Manage features via command line.
+
+= List all features =
+
+`wp lw-enable list`
+
+Shows a table with all features and their current status (enabled/disabled).
+
+= Enable a feature =
+
+`wp lw-enable enable <feature>`
+
+Example:
+`wp lw-enable enable svg`
+
+= Disable a feature =
+
+`wp lw-enable disable <feature>`
+
+Example:
+`wp lw-enable disable svg`
+
+= Enable all features =
+
+`wp lw-enable enable-all`
+
+Enables all features at once.
+
+= Disable all features =
+
+`wp lw-enable disable-all`
+
+Disables all features (restores defaults).
+
+= Available features =
+
+* svg - SVG file uploads
+
 == Frequently Asked Questions ==
 
 = Is SVG upload safe? =
@@ -48,6 +88,9 @@ The plugin performs comprehensive sanitization: script detection, XSS prevention
 5MB per file.
 
 == Changelog ==
+
+= 1.0.1 =
+* New: WP-CLI support (list, enable, disable, enable-all, disable-all)
 
 = 1.0.0 =
 * Initial release
