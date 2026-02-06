@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset name="LW Enable">
+	<description>Coding standards for LW Enable plugin.</description>
+
+	<file>.</file>
+	<exclude-pattern>/vendor/</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="lw-enable"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="lw_enable"/>
+				<element value="LW_ENABLE"/>
+				<element value="LW_Enable"/>
+				<element value="LightweightPlugins"/>
+				<element value="lw_plugins"/>
+			</property>
+		</properties>
+	</rule>
+
+</ruleset>
