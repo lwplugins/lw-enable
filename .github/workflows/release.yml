@@ -70,14 +70,31 @@ jobs:
       - name: Create tag and release
         if: steps.check_tag.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_VERSION: ${{ steps.get_version.outputs.version }}
         with:
-          tag_name: "v${{ steps.get_version.outputs.version }}"
-          name: "v${{ steps.get_version.outputs.version }}"
-          body: "See readme.txt for full changelog."
-          files: "dist/lw-enable-${{ steps.get_version.outputs.version }}.zip"
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: v${{ steps.get_version.outputs.version }}
+          body: |
+            ## LW Enable v${{ steps.get_version.outputs.version }}
+
+            ### Installation
+
+            **Via Composer:**
+            ```bash
+            composer require lwplugins/lw-enable
+            ```
+
+            **Manual Installation:**
+            1. Download `lw-enable-${{ steps.get_version.outputs.version }}.zip`
+            2. Upload to `/wp-content/plugins/`
+            3. Activate in WordPress admin
+
+            ### Changelog
+
+            See [readme.txt](https://github.com/lwplugins/lw-enable/blob/main/readme.txt) for full changelog.
+          files: |
+            dist/lw-enable-${{ steps.get_version.outputs.version }}.zip
           draft: false
           prerelease: false
           generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
