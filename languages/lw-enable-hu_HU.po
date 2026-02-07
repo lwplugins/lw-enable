@@ -1,0 +1,100 @@
+# Copyright (C) 2026 LW Plugins
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Lightweight Enable 1.0.1\n"
+"Report-Msgid-Bugs-To: https://github.com/lwplugins/lw-enable/issues\n"
+"POT-Creation-Date: 2026-02-07T08:43:29+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LW Plugins <info@lwplugins.com>\n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: lw-enable\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#. Plugin Name of the plugin
+#: lw-enable.php
+msgid "Lightweight Enable"
+msgstr "Lightweight Enable"
+
+#. Plugin URI of the plugin
+#: lw-enable.php
+msgid "https://github.com/lwplugins/lw-enable"
+msgstr "https://github.com/lwplugins/lw-enable"
+
+#. Description of the plugin
+#: lw-enable.php
+msgid "Enable WordPress features: SVG uploads and more."
+msgstr "WordPress funkciók engedélyezése: SVG feltöltések és még több."
+
+#. Author of the plugin
+#: lw-enable.php includes/Admin/ParentPage.php:104
+#: includes/Admin/ParentPage.php:105 includes/Admin/ParentPage.php:126
+msgid "LW Plugins"
+msgstr "LW Plugins"
+
+#. Author URI of the plugin
+#: lw-enable.php
+msgid "https://lwplugins.com"
+msgstr "https://lwplugins.com"
+
+#: includes/Admin/ParentPage.php:127
+msgid "Lightweight plugins for WordPress - minimal footprint, maximum impact."
+msgstr ""
+"Könnyű WordPress bővítmények – minimális erőforrásigény, maximális hatás."
+
+#: includes/Admin/ParentPage.php:180
+msgid "Active"
+msgstr "Aktív"
+
+#: includes/Admin/ParentPage.php:187 includes/Plugin.php:97
+msgid "Settings"
+msgstr "Beállítások"
+
+#: includes/Admin/ParentPage.php:191
+msgid "Get Plugin"
+msgstr "Bővítmény beszerzése"
+
+#: includes/Admin/Settings/FieldsData.php:25
+msgid "Media"
+msgstr "Média"
+
+#: includes/Admin/Settings/FieldsData.php:28
+msgid "SVG Uploads"
+msgstr "SVG feltöltések"
+
+#: includes/Admin/Settings/FieldsData.php:41
+msgid "Allow SVG file uploads with security sanitization"
+msgstr "SVG fájlok feltöltésének engedélyezése biztonsági tisztítással"
+
+#: includes/Admin/SettingsPage.php:43 includes/Admin/SettingsPage.php:44
+msgid "Enable"
+msgstr "Engedélyezés"
+
+#: includes/Admin/SettingsPage.php:100
+msgid "LW Enable"
+msgstr "LW Enable"
+
+#: includes/Admin/SettingsPage.php:104
+msgid "Settings saved."
+msgstr "Beállítások elmentve."
+
+#: includes/Svg/Upload.php:34
+msgid "Invalid file type. Only SVG files are allowed."
+msgstr "Érvénytelen fájltípus. Csak SVG fájlok engedélyezettek."
+
+#: includes/Svg/Upload.php:39
+msgid "SVG file exceeds maximum size limit of 5MB."
+msgstr "Az SVG fájl túllépi az 5MB-os maximális méretkorlátot."
+
+#: includes/Svg/Upload.php:44 includes/Svg/Upload.php:72
+#: includes/Svg/Upload.php:101
+msgid "SVG file contains dangerous content."
+msgstr "Az SVG fájl veszélyes tartalmat tartalmaz."
+
+#: includes/Svg/Upload.php:65
+msgid "Invalid file path."
+msgstr "Érvénytelen fájlútvonal."
