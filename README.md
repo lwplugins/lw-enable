@@ -7,6 +7,8 @@ Enable WordPress features: SVG uploads and more.
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-blue.svg)](https://wordpress.org)
 [![License](https://img.shields.io/badge/License-GPL--2.0-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
+![LW Enable Settings](.github/screenshot.png)
+
 ## Features
 
 ### Media
