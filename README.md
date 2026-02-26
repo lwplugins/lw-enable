@@ -79,3 +79,12 @@ SVG files can contain malicious code. This plugin performs comprehensive sanitiz
 - [GitHub](https://github.com/lwplugins/lw-enable)
 - [Packagist](https://packagist.org/packages/lwplugins/lw-enable)
 - [LW Plugins](https://lwplugins.com)
+
+
+## Sponsor
+
+<a href="https://sinann.io/">
+  <img src="https://sinann.io/favicon.svg" alt="Sinann" width="40">
+</a>
+
+Supported by [Sinann](https://sinann.io/)
