@@ -3,7 +3,7 @@
  * Plugin Name:       LW Enable
  * Plugin URI:        https://github.com/lwplugins/lw-enable
  * Description:       Lightweight enable — SVG uploads and more.
- * Version:           1.0.8
+ * Version:           1.0.9
  * Requires at least: 6.0
  * Requires PHP:      8.2
  * Author:            LW Plugins
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LW_ENABLE_VERSION', '1.0.8' );
+define( 'LW_ENABLE_VERSION', '1.0.9' );
 define( 'LW_ENABLE_FILE', __FILE__ );
 define( 'LW_ENABLE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LW_ENABLE_URL', plugin_dir_url( __FILE__ ) );
@@ -31,6 +31,17 @@ define( 'LW_ENABLE_URL', plugin_dir_url( __FILE__ ) );
 // Autoloader.
 if ( file_exists( LW_ENABLE_PATH . 'vendor/autoload.php' ) ) {
 	require_once LW_ENABLE_PATH . 'vendor/autoload.php';
+} else {
+	add_action(
+		'admin_notices',
+		static function (): void {
+			printf(
+				'<div class="notice notice-error"><p><strong>LW Enable:</strong> %s</p></div>',
+				esc_html__( 'Autoloader not found. Please run "composer install" in the plugin directory, or re-install the plugin from a release ZIP.', 'lw-enable' )
+			);
+		}
+	);
+	return;
 }
 
 /**
