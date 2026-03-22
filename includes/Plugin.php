@@ -12,6 +12,7 @@ namespace LightweightPlugins\Enable;
 use LightweightPlugins\Enable\Admin\SettingsPage;
 use LightweightPlugins\Enable\CLI\Commands as CLICommands;
 use LightweightPlugins\Enable\Features\Svg;
+use LightweightPlugins\Enable\SiteManager\Integration as SiteManagerIntegration;
 
 /**
  * Main plugin class.
@@ -26,6 +27,7 @@ final class Plugin {
 		$this->init_features();
 		$this->init_admin();
 		$this->init_cli();
+		$this->init_site_manager();
 	}
 
 	/**
@@ -71,6 +73,15 @@ final class Plugin {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			\WP_CLI::add_command( 'lw-enable', CLICommands::class );
 		}
+	}
+
+	/**
+	 * Initialize LW Site Manager integration.
+	 *
+	 * @return void
+	 */
+	private function init_site_manager(): void {
+		SiteManagerIntegration::init();
 	}
 
 	/**

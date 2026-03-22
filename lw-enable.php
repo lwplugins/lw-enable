@@ -3,7 +3,7 @@
  * Plugin Name:       LW Enable
  * Plugin URI:        https://github.com/lwplugins/lw-enable
  * Description:       Lightweight enable — SVG uploads and more.
- * Version:           1.0.10
+ * Version:           1.0.11
  * Requires at least: 6.0
  * Requires PHP:      8.2
  * Author:            LW Plugins
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LW_ENABLE_VERSION', '1.0.10' );
+define( 'LW_ENABLE_VERSION', '1.0.11' );
 define( 'LW_ENABLE_FILE', __FILE__ );
 define( 'LW_ENABLE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LW_ENABLE_URL', plugin_dir_url( __FILE__ ) );
