@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.12] - 2026-07-18
+
+### Changed
+- Added PHPStan level 5 static analysis and a PHPUnit test suite (including SVG sanitizer security tests) to CI. No functional changes.
+
 ## [1.0.11] - 2026-03-22
 
 ### Added

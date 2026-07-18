@@ -80,7 +80,7 @@ final class MimeType {
 	 * @return array
 	 */
 	public function disable_srcset( array $image_meta, array $size_array, string $image_src, int $attachment_id ): array {
-		if ( 'image/svg+xml' === get_post_mime_type( $attachment_id ) && is_array( $image_meta ) ) {
+		if ( 'image/svg+xml' === get_post_mime_type( $attachment_id ) ) {
 			$image_meta['sizes'] = array();
 		}
 

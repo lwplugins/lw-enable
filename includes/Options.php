@@ -72,4 +72,15 @@ final class Options {
 		update_option( self::OPTION_NAME, $options );
 		self::$options = null;
 	}
+
+	/**
+	 * Clear the in-memory options cache.
+	 *
+	 * Primarily used to keep unit tests isolated from one another.
+	 *
+	 * @return void
+	 */
+	public static function clear_cache(): void {
+		self::$options = null;
+	}
 }

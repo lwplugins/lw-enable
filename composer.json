@@ -15,11 +15,21 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0",
-        "wp-coding-standards/wpcs": "^3.0"
+        "wp-coding-standards/wpcs": "^3.0",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "php-stubs/woocommerce-stubs": "^10.9",
+        "php-stubs/wp-cli-stubs": "^2.12",
+        "phpunit/phpunit": "^10.0",
+        "brain/monkey": "^2.6"
     },
     "autoload": {
         "psr-4": {
             "LightweightPlugins\\Enable\\": "includes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LightweightPlugins\\Enable\\Tests\\": "tests/"
         }
     },
     "config": {
@@ -31,6 +41,8 @@
     },
     "scripts": {
         "phpcs": "phpcs",
-        "phpcbf": "phpcbf"
+        "phpcbf": "phpcbf",
+        "analyse": "phpstan analyse --memory-limit=2G",
+        "test": "phpunit"
     }
 }

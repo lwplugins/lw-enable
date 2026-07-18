@@ -3,7 +3,7 @@ Contributors: lwplugins
 Tags: enable, svg, upload, media
 Requires at least: 6.0
 Tested up to: 6.7
-Stable tag: 1.0.11
+Stable tag: 1.0.12
 Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,9 @@ The plugin performs comprehensive sanitization: script detection, XSS prevention
 5MB per file.
 
 == Changelog ==
+
+= 1.0.12 =
+* Update: Added PHPStan level 5 static analysis and a PHPUnit test suite (including SVG sanitizer security tests) to CI. No functional changes.
 
 = 1.0.11 =
 * New: LW Site Manager integration - enable abilities for AI agents
