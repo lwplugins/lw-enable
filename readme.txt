@@ -3,7 +3,7 @@ Contributors: lwplugins
 Tags: enable, svg, upload, media
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 1.0.14
+Stable tag: 1.1.0
 Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,13 @@ The plugin performs comprehensive sanitization: script detection, XSS prevention
 5MB per file.
 
 == Changelog ==
+
+= 1.1.0 =
+* New: settings screen built with WordPress components: side navigation, a top bar with Save/Discard and a Cmd/Ctrl+S shortcut, loading skeletons, a mobile layout and an Enabled/Disabled state next to each switch. Only the switches you changed are saved.
+* New: admin REST API under lw-enable/v1/admin/settings for users with manage_options.
+* New: Hungarian translation of the new interface and of strings that were never translated (JavaScript translation file shipped in languages/).
+* Change: the admin accent and the plugin logo use a darker green (#2e7d32) so white text on buttons is readable (5.1:1).
+* Change: the classic settings form, its stylesheet and script were removed.
 
 = 1.0.14 =
 * Fix: the release package and Composer dist no longer ship tests, docs or development configuration

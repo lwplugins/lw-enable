@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0] - 2026-09-24
+
+### Added
+- New settings screen built with WordPress components: side navigation, a top bar with Save/Discard and a Cmd/Ctrl+S shortcut, loading skeletons, a mobile layout and an Enabled/Disabled state next to each switch. Only the switches you changed are saved.
+- Admin REST API under `lw-enable/v1/admin/settings` for users with `manage_options`.
+- Hungarian translation of the new interface and of strings that were never translated (JavaScript translation file shipped in `languages/`).
+
+### Changed
+- The admin accent and the plugin logo use a darker green (#2e7d32) so white text on buttons is readable (5.1:1).
+- The classic settings form, its stylesheet and script were removed.
+
 ## [1.0.14] - 2026-09-06
 
 ### Fixed

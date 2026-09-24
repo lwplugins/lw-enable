@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace LightweightPlugins\Enable\Admin;
 
-use LightweightPlugins\Enable\Admin\Settings\FieldsData;
-use LightweightPlugins\Enable\Options;
+use LightweightPlugins\Enable\Rest\Admin\Routes;
 
 /**
- * Handles the settings page.
+ * The settings screen: a mount point for the React admin (build/index),
+ * which reads and writes through the lw-enable/v1 REST routes.
  */
 final class SettingsPage {
 
@@ -23,12 +23,29 @@ final class SettingsPage {
 	public const SLUG = 'lw-enable';
 
 	/**
+	 * Script and style handle.
+	 */
+	private const HANDLE = 'lw-enable-admin-app';
+
+	/**
+	 * Documentation URL.
+	 */
+	private const DOCS_URL = 'https://lwplugins.com/docs/lw-enable/';
+
+	/**
+	 * Hook suffix returned by add_submenu_page().
+	 *
+	 * @var string
+	 */
+	private string $hook_suffix = '';
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
-		add_action( 'admin_init', array( $this, 'maybe_save' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		add_filter( 'admin_body_class', array( $this, 'body_class' ) );
 	}
 
 	/**
@@ -39,7 +56,7 @@ final class SettingsPage {
 	public function add_menu(): void {
 		ParentPage::maybe_register();
 
-		add_submenu_page(
+		$hook = add_submenu_page(
 			ParentPage::SLUG,
 			__( 'Enable', 'lw-enable' ),
 			__( 'Enable', 'lw-enable' ),
@@ -47,42 +64,56 @@ final class SettingsPage {
 			self::SLUG,
 			array( $this, 'render' )
 		);
+
+		$this->hook_suffix = is_string( $hook ) ? $hook : '';
 	}
 
 	/**
-	 * Enqueue admin assets.
+	 * Enqueue the React app on the settings screen.
 	 *
 	 * @param string $hook Current admin page.
 	 * @return void
 	 */
 	public function enqueue_assets( string $hook ): void {
-		$valid_hooks = array(
-			'toplevel_page_' . ParentPage::SLUG,
-			ParentPage::SLUG . '_page_' . self::SLUG,
-		);
-
-		if ( ! in_array( $hook, $valid_hooks, true ) ) {
+		if ( '' === $this->hook_suffix || $hook !== $this->hook_suffix ) {
 			return;
 		}
 
-		wp_enqueue_style(
-			'lw-enable-admin',
-			LW_ENABLE_URL . 'assets/css/admin.css',
-			array(),
-			LW_ENABLE_VERSION
-		);
+		if ( ! BuildAssets::enqueue( 'index', self::HANDLE ) ) {
+			return;
+		}
 
-		wp_enqueue_script(
-			'lw-enable-admin',
-			LW_ENABLE_URL . 'assets/js/admin.js',
-			array(),
-			LW_ENABLE_VERSION,
-			true
+		wp_add_inline_script(
+			self::HANDLE,
+			'window.lwEnable = ' . wp_json_encode(
+				array(
+					'version'   => LW_ENABLE_VERSION,
+					'namespace' => Routes::NAMESPACE,
+					'docsUrl'   => self::DOCS_URL,
+				)
+			) . ';',
+			'before'
 		);
 	}
 
 	/**
-	 * Render settings page.
+	 * Mark the settings screen body for the app's styles.
+	 *
+	 * @param string $classes Space-separated body classes.
+	 * @return string
+	 */
+	public function body_class( string $classes ): string {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		if ( '' === $this->hook_suffix || ! $screen || $screen->id !== $this->hook_suffix ) {
+			return $classes;
+		}
+
+		return $classes . ' lw-enable-screen';
+	}
+
+	/**
+	 * Render the mount point (or a notice when the build is missing).
 	 *
 	 * @return void
 	 */
@@ -91,125 +122,15 @@ final class SettingsPage {
 			return;
 		}
 
-		$options      = Options::get_all();
-		$sections     = FieldsData::get_sections();
-		$descriptions = FieldsData::get_descriptions();
-
-		?>
-		<div class="wrap">
-			<h1>
-				<img src="<?php echo esc_url( LW_ENABLE_URL . 'assets/img/title-icon.svg' ); ?>" alt="" class="lw-title-icon" />
-				<?php esc_html_e( 'Lightweight Enable', 'lw-enable' ); ?>
-				<span style="font-size: 13px; font-weight: 400; color: #888;">(<?php echo esc_html( LW_ENABLE_VERSION ); ?>)</span>
-			</h1>
-
-			<?php if ( isset( $_GET['saved'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
-				<div class="notice notice-success is-dismissible">
-					<p><?php esc_html_e( 'Settings saved.', 'lw-enable' ); ?></p>
-				</div>
-			<?php endif; ?>
-
-			<form method="post">
-				<?php wp_nonce_field( 'lw_enable_save', 'lw_enable_nonce' ); ?>
-				<input type="hidden" name="lw_enable_active_tab" value="" />
-
-				<div class="lw-enable-settings">
-					<?php $this->render_tabs_nav( $sections ); ?>
-
-					<div class="lw-enable-tab-content">
-						<?php $this->render_tabs_content( $sections, $options, $descriptions ); ?>
-						<?php submit_button(); ?>
-					</div>
-				</div>
-			</form>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Render tab navigation.
-	 *
-	 * @param array $sections Sections data.
-	 * @return void
-	 */
-	private function render_tabs_nav( array $sections ): void {
-		$first = true;
-		?>
-		<ul class="lw-enable-tabs">
-			<?php foreach ( $sections as $slug => $section ) : ?>
-				<li>
-					<a href="#<?php echo esc_attr( $slug ); ?>" <?php echo $first ? 'class="active"' : ''; ?>>
-						<span class="dashicons <?php echo esc_attr( $section['icon'] ); ?>"></span>
-						<?php echo esc_html( $section['title'] ); ?>
-					</a>
-				</li>
-				<?php $first = false; ?>
-			<?php endforeach; ?>
-		</ul>
-		<?php
-	}
-
-	/**
-	 * Render tab content panels.
-	 *
-	 * @param array $sections     Sections data.
-	 * @param array $options      Current options.
-	 * @param array $descriptions Field descriptions.
-	 * @return void
-	 */
-	private function render_tabs_content( array $sections, array $options, array $descriptions ): void {
-		$first = true;
-
-		foreach ( $sections as $slug => $section ) {
-			$active = $first ? ' active' : '';
-			printf( '<div id="tab-%s" class="lw-enable-tab-panel%s">', esc_attr( $slug ), esc_attr( $active ) );
-			printf( '<h2>%s</h2>', esc_html( $section['title'] ) );
-			echo '<table class="form-table">';
-
-			foreach ( $section['fields'] as $key => $label ) {
-				printf(
-					'<tr><th scope="row">%s</th><td><label><input type="checkbox" name="lw_enable[%s]" value="1" %s> %s</label></td></tr>',
-					esc_html( $label ),
-					esc_attr( $key ),
-					checked( $options[ $key ] ?? false, true, false ),
-					esc_html( $descriptions[ $key ] ?? '' )
-				);
-			}
-
-			echo '</table></div>';
-			$first = false;
-		}
-	}
-
-	/**
-	 * Save settings if posted.
-	 *
-	 * @return void
-	 */
-	public function maybe_save(): void {
-		if ( ! isset( $_POST['lw_enable_nonce'] ) ) {
+		if ( ! BuildAssets::exists( 'index' ) ) {
+			printf(
+				'<div class="wrap"><h1>%s</h1><div class="notice notice-error"><p>%s</p></div></div>',
+				esc_html__( 'Lightweight Enable', 'lw-enable' ),
+				esc_html__( 'The settings screen files are missing. Re-install the plugin from a release ZIP, or run "npm install && npm run build" in the plugin directory.', 'lw-enable' )
+			);
 			return;
 		}
 
-		$nonce = sanitize_text_field( wp_unslash( $_POST['lw_enable_nonce'] ) );
-
-		if ( ! wp_verify_nonce( $nonce, 'lw_enable_save' ) ) {
-			return;
-		}
-
-		$defaults = Options::get_defaults();
-		$options  = array();
-
-		foreach ( array_keys( $defaults ) as $key ) {
-			$options[ $key ] = ! empty( $_POST['lw_enable'][ $key ] );
-		}
-
-		Options::save( $options );
-
-		$tab  = isset( $_POST['lw_enable_active_tab'] ) ? sanitize_text_field( wp_unslash( $_POST['lw_enable_active_tab'] ) ) : '';
-		$hash = $tab ? '#' . $tab : '';
-
-		wp_safe_redirect( admin_url( 'admin.php?page=' . self::SLUG . '&saved=1' . $hash ) );
-		exit;
+		echo '<div id="lw-enable-root" class="lw-enable-root"></div>';
 	}
 }

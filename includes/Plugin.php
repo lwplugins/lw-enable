@@ -12,6 +12,7 @@ namespace LightweightPlugins\Enable;
 use LightweightPlugins\Enable\Admin\SettingsPage;
 use LightweightPlugins\Enable\CLI\Commands as CLICommands;
 use LightweightPlugins\Enable\Features\Svg;
+use LightweightPlugins\Enable\Rest\Admin\Routes as AdminRoutes;
 use LightweightPlugins\Enable\SiteManager\Integration as SiteManagerIntegration;
 
 /**
@@ -26,6 +27,7 @@ final class Plugin {
 		$this->init_hooks();
 		$this->init_features();
 		$this->init_admin();
+		$this->init_rest();
 		$this->init_cli();
 		$this->init_site_manager();
 	}
@@ -62,6 +64,15 @@ final class Plugin {
 		if ( is_admin() ) {
 			new SettingsPage();
 		}
+	}
+
+	/**
+	 * Initialize the admin REST routes (used by the React settings screen).
+	 *
+	 * @return void
+	 */
+	private function init_rest(): void {
+		( new AdminRoutes() )->register();
 	}
 
 	/**

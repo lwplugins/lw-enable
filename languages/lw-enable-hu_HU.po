@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Lightweight Enable 1.0.1\n"
-"Report-Msgid-Bugs-To: https://github.com/lwplugins/lw-enable/issues\n"
-"POT-Creation-Date: 2026-02-07T08:43:29+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/lw-enable\n"
+"POT-Creation-Date: 2026-09-24T20:55:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LW Plugins <info@lwplugins.com>\n"
@@ -17,8 +17,8 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: lw-enable.php
-msgid "Lightweight Enable"
-msgstr "Lightweight Enable"
+msgid "LW Enable"
+msgstr "LW Enable"
 
 #. Plugin URI of the plugin
 #: lw-enable.php
@@ -27,12 +27,12 @@ msgstr "https://github.com/lwplugins/lw-enable"
 
 #. Description of the plugin
 #: lw-enable.php
-msgid "Enable WordPress features: SVG uploads and more."
-msgstr "WordPress funkciók engedélyezése: SVG feltöltések és még több."
+msgid "Lightweight enable — SVG uploads and more."
+msgstr "Könnyűsúlyú engedélyezés – SVG feltöltések és még több."
 
 #. Author of the plugin
-#: lw-enable.php includes/Admin/ParentPage.php:104
-#: includes/Admin/ParentPage.php:105 includes/Admin/ParentPage.php:126
+#: lw-enable.php includes/Admin/ParentPage.php:106
+#: includes/Admin/ParentPage.php:107 includes/Admin/ParentPage.php:128
 msgid "LW Plugins"
 msgstr "LW Plugins"
 
@@ -41,20 +41,20 @@ msgstr "LW Plugins"
 msgid "https://lwplugins.com"
 msgstr "https://lwplugins.com"
 
-#: includes/Admin/ParentPage.php:127
+#: includes/Admin/ParentPage.php:129
 msgid "Lightweight plugins for WordPress - minimal footprint, maximum impact."
 msgstr ""
 "Könnyű WordPress bővítmények – minimális erőforrásigény, maximális hatás."
 
-#: includes/Admin/ParentPage.php:180
+#: includes/Admin/ParentPage.php:190
 msgid "Active"
 msgstr "Aktív"
 
-#: includes/Admin/ParentPage.php:187 includes/Plugin.php:97
+#: includes/Admin/ParentPage.php:197 includes/Plugin.php:119 build/index.js:1
 msgid "Settings"
 msgstr "Beállítások"
 
-#: includes/Admin/ParentPage.php:191
+#: includes/Admin/ParentPage.php:201
 msgid "Get Plugin"
 msgstr "Bővítmény beszerzése"
 
@@ -70,17 +70,60 @@ msgstr "SVG feltöltések"
 msgid "Allow SVG file uploads with security sanitization"
 msgstr "SVG fájlok feltöltésének engedélyezése biztonsági tisztítással"
 
-#: includes/Admin/SettingsPage.php:43 includes/Admin/SettingsPage.php:44
+#: includes/Admin/SettingsPage.php:61 includes/Admin/SettingsPage.php:62
+#: includes/SiteManager/Integration.php:38
 msgid "Enable"
 msgstr "Engedélyezés"
 
-#: includes/Admin/SettingsPage.php:100
-msgid "LW Enable"
-msgstr "LW Enable"
+#: includes/Admin/SettingsPage.php:128
+msgid "Lightweight Enable"
+msgstr "Lightweight Enable"
 
-#: includes/Admin/SettingsPage.php:104
-msgid "Settings saved."
-msgstr "Beállítások elmentve."
+#: includes/Admin/SettingsPage.php:129
+msgid ""
+"The settings screen files are missing. Re-install the plugin from a release "
+"ZIP, or run \"npm install && npm run build\" in the plugin directory."
+msgstr "Hiányoznak a beállítási képernyő fájljai. Telepítsd újra a bővítményt egy kiadási ZIP-ből, vagy futtasd az „npm install && npm run build” parancsot a bővítmény könyvtárában."
+
+#: includes/SiteManager/EnableAbilities.php:38
+msgid "Get Enable Options"
+msgstr "Engedélyezési beállítások lekérése"
+
+#: includes/SiteManager/EnableAbilities.php:39
+msgid "Get all LW Enable feature toggle settings."
+msgstr "Az összes LW Enable funkciókapcsoló beállításának lekérése."
+
+#: includes/SiteManager/EnableAbilities.php:69
+msgid "Set Enable Options"
+msgstr "Engedélyezési beállítások módosítása"
+
+#: includes/SiteManager/EnableAbilities.php:70
+msgid "Toggle LW Enable features on or off."
+msgstr "LW Enable funkciók be- vagy kikapcsolása."
+
+#: includes/SiteManager/EnableAbilities.php:80
+msgid "Feature flags to update. Keys: svg (bool)."
+msgstr "Módosítandó funkciókapcsolók. Kulcsok: svg (bool)."
+
+#: includes/SiteManager/EnableService.php:49
+msgid "Provide an options object with at least one feature key."
+msgstr "Adj meg egy beállítás-objektumot legalább egy funkciókulccsal."
+
+#. translators: %s: comma-separated list of valid keys
+#: includes/SiteManager/EnableService.php:69
+#, php-format
+msgid "No valid feature keys provided. Valid keys: %s."
+msgstr "Nincs érvényes funkciókulcs megadva. Érvényes kulcsok: %s."
+
+#. translators: %d: number of options updated
+#: includes/SiteManager/EnableService.php:82
+#, php-format
+msgid "%d option(s) updated."
+msgstr "%d beállítás frissítve."
+
+#: includes/SiteManager/Integration.php:39
+msgid "WordPress feature toggle abilities"
+msgstr "WordPress funkciókapcsoló képességek"
 
 #: includes/Svg/Upload.php:34
 msgid "Invalid file type. Only SVG files are allowed."
@@ -98,3 +141,61 @@ msgstr "Az SVG fájl veszélyes tartalmat tartalmaz."
 #: includes/Svg/Upload.php:65
 msgid "Invalid file path."
 msgstr "Érvénytelen fájlútvonal."
+
+#: lw-enable.php:40
+msgid ""
+"Autoloader not found. Please run \"composer install\" in the plugin "
+"directory, or re-install the plugin from a release ZIP."
+msgstr "Az autoloader nem található. Futtasd a „composer install” parancsot a bővítmény könyvtárában, vagy telepítsd újra a bővítményt egy kiadási ZIP-ből."
+
+#: build/index.js:1
+msgid "Loading…"
+msgstr "Betöltés…"
+
+#: build/index.js:1
+msgid "Try again"
+msgstr "Újrapróbálás"
+
+#: build/index.js:1
+msgid "LW Plugins (opens in a new tab)"
+msgstr "LW Plugins (új lapon nyílik meg)"
+
+#: build/index.js:1
+msgid "LW Enable home"
+msgstr "LW Enable kezdőlap"
+
+#: build/index.js:1
+msgid "LW Enable sections"
+msgstr "LW Enable szakaszok"
+
+#: build/index.js:1
+msgid "Documentation"
+msgstr "Dokumentáció"
+
+#: build/index.js:1
+msgid "(opens in a new tab)"
+msgstr "(új lapon nyílik meg)"
+
+#: build/index.js:1
+msgid "Unsaved changes"
+msgstr "Nem mentett módosítások"
+
+#: build/index.js:1
+msgid "Discard"
+msgstr "Elvetés"
+
+#: build/index.js:1
+msgid "Save changes"
+msgstr "Módosítások mentése"
+
+#: build/index.js:1
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#: build/index.js:1
+msgid "Disabled"
+msgstr "Letiltva"
+
+#: build/index.js:1
+msgid "Settings saved."
+msgstr "Beállítások elmentve."
