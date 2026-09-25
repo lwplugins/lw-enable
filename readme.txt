@@ -1,9 +1,9 @@
 === LW Enable ===
 Contributors: lwplugins
 Tags: enable, svg, upload, media
-Requires at least: 6.0
+Requires at least: 6.6
 Tested up to: 7.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,9 @@ The plugin performs comprehensive sanitization: script detection, XSS prevention
 5MB per file.
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix: "Requires at least" raised to WordPress 6.6 - the React settings screen needs the react-jsx-runtime script core registers from 6.6; on older versions the page stayed blank.
 
 = 1.1.1 =
 * Fix: Notices from themes and other plugins (for example a theme's purchase-code or recommended-plugins notice) could show on the LW Enable screen. They are now kept off every LW Plugins screen, whatever their markup.
