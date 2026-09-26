@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace LightweightPlugins\Enable;
 
+use LightweightPlugins\Enable\Admin\Hub\Hub;
 use LightweightPlugins\Enable\Admin\SettingsPage;
 use LightweightPlugins\Enable\CLI\Commands as CLICommands;
 use LightweightPlugins\Enable\Features\Svg;
@@ -25,6 +26,7 @@ final class Plugin {
 	 */
 	public function __construct() {
 		$this->init_hooks();
+		Hub::init( LW_ENABLE_FILE );
 		$this->init_features();
 		$this->init_admin();
 		$this->init_rest();
