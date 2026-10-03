@@ -28,16 +28,22 @@ final class SettingsPage {
 	private const HANDLE = 'lw-enable-admin-app';
 
 	/**
-	 * Documentation URL.
-	 */
-	private const DOCS_URL = 'https://lwplugins.com/docs/lw-enable/';
-
-	/**
 	 * Hook suffix returned by add_submenu_page().
 	 *
 	 * @var string
 	 */
 	private string $hook_suffix = '';
+
+	/**
+	 * Documentation page on docs.lwplugins.com, in the admin user's language.
+	 *
+	 * @return string
+	 */
+	public static function docs_url(): string {
+		$lang = str_starts_with( get_user_locale(), 'hu' ) ? 'hu' : 'en';
+
+		return 'https://docs.lwplugins.com/' . $lang . '/plugins/lw-enable';
+	}
 
 	/**
 	 * Constructor.
@@ -89,7 +95,7 @@ final class SettingsPage {
 				array(
 					'version'   => LW_ENABLE_VERSION,
 					'namespace' => Routes::NAMESPACE,
-					'docsUrl'   => self::DOCS_URL,
+					'docsUrl'   => self::docs_url(),
 				)
 			) . ';',
 			'before'

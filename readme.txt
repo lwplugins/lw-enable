@@ -3,7 +3,7 @@ Contributors: lwplugins
 Tags: enable, svg, upload, media
 Requires at least: 6.6
 Tested up to: 7.1
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 Requires PHP: 8.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,9 @@ The plugin performs comprehensive sanitization: script detection, XSS prevention
 5MB per file.
 
 == Changelog ==
+
+= 1.1.4 =
+* Fix: The admin Docs link now opens the plugin's page on docs.lwplugins.com, in Hungarian for Hungarian admin users.
 
 = 1.1.3 =
 * Change: the LW Plugins overview page is now a searchable table showing each LW plugin's status and version, with one-click activation for installed plugins; it always uses the newest version shipped by any active LW plugin.
