@@ -53,6 +53,18 @@ final class DomInspectorTest extends TestCase {
 			'non-image data href'          => array( "<svg {$ns}><a href=\"data:text/plain,1\"/></svg>" ),
 			'animated href value'          => array( "<svg {$ns}><a><set attributeName=\"href\" to=\"javascript:1\"/></a></svg>" ),
 			'animated values list'         => array( "<svg {$ns}><a><animate attributeName=\"href\" values=\"#a;javascript:1\"/></a></svg>" ),
+			'prefixed iframe element'      => array( "<svg {$ns} {$alt}><h:iframe/></svg>" ),
+			'prefixed object element'      => array( "<svg {$ns} {$alt}><h:object/></svg>" ),
+			'prefixed embed element'       => array( "<svg {$ns} {$alt}><h:embed/></svg>" ),
+			'frame element'                => array( "<svg {$ns}><frame/></svg>" ),
+			'handler element'              => array( "<svg {$ns}><handler/></svg>" ),
+			'control char in data scheme'  => array( "<svg {$ns}><rect data=\"java&#x09;script:1\"/></svg>" ),
+			'srcdoc attribute'             => array( "<svg {$ns}><rect srcdoc=\"data:text/html,1\"/></svg>" ),
+			'stylesheet instruction'       => array( "<?xml-stylesheet type=\"text/css\" href=\"s.css\"?><svg {$ns}/>" ),
+			'instruction inside root'      => array( "<svg {$ns}><?x 1?></svg>" ),
+			'non-svg root'                 => array( "<html {$alt}><!-- <svg></svg> --></html>" ),
+			'svg root without namespace'   => array( '<svg><rect width="1" height="1"/></svg>' ),
+			'svg root in other namespace'  => array( '<svg xmlns="http://www.w3.org/1999/xhtml"/>' ),
 		);
 	}
 
@@ -75,6 +87,9 @@ final class DomInspectorTest extends TestCase {
 			'https link'      => array( "<svg {$ns}><a href=\"https://example.com/\"><rect width=\"1\" height=\"1\"/></a></svg>" ),
 			'png data image'  => array( "<svg {$ns}><image href=\"data:image/png;base64,AAAA\" width=\"1\" height=\"1\"/></svg>" ),
 			'opacity animate' => array( "<svg {$ns}><rect width=\"1\" height=\"1\"><animate attributeName=\"opacity\" values=\"0;1\" dur=\"1s\"/></rect></svg>" ),
+			'xml declaration' => array( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- export --><svg {$ns}><rect width=\"1\" height=\"1\"/></svg>" ),
+			'prefixed root'   => array( '<s:svg xmlns:s="http://www.w3.org/2000/svg"><s:rect width="1" height="1"/></s:svg>' ),
+			'editor metadata' => array( "<svg {$ns} xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" inkscape:version=\"1.3\"><sodipodi:namedview id=\"v\"/><metadata/><g inkscape:label=\"L\"><rect width=\"1\" height=\"1\"/></g></svg>" ),
 		);
 	}
 }

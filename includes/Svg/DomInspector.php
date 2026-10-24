@@ -19,14 +19,21 @@ final class DomInspector {
 	 *
 	 * @var array<string>
 	 */
-	private const BLOCKED_ELEMENTS = array( 'script', 'foreignobject' );
+	private const BLOCKED_ELEMENTS = array( 'script', 'foreignobject', 'iframe', 'object', 'embed', 'frame', 'handler' );
 
 	/**
 	 * Attribute local names that carry a URL or an animated value (lowercase).
 	 *
 	 * @var array<string>
 	 */
-	private const URL_ATTRIBUTES = array( 'href', 'src', 'action', 'formaction', 'from', 'to', 'by', 'values' );
+	private const URL_ATTRIBUTES = array( 'href', 'src', 'action', 'formaction', 'from', 'to', 'by', 'values', 'data', 'srcdoc' );
+
+	/**
+	 * SVG namespace URI.
+	 *
+	 * @var string
+	 */
+	private const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
 
 	/**
 	 * Allowed data: URL media types (lowercase).
@@ -42,6 +49,10 @@ final class DomInspector {
 	 * @return bool
 	 */
 	public static function is_safe( \DOMDocument $dom ): bool {
+		if ( ! self::has_svg_root( $dom ) || self::has_processing_instruction( $dom ) ) {
+			return false;
+		}
+
 		foreach ( $dom->getElementsByTagName( '*' ) as $element ) {
 			if ( ! self::is_element_allowed( $element ) ) {
 				return false;
@@ -49,6 +60,34 @@ final class DomInspector {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Whether the root element is an svg element in the SVG namespace.
+	 *
+	 * @param \DOMDocument $dom Parsed document.
+	 * @return bool
+	 */
+	private static function has_svg_root( \DOMDocument $dom ): bool {
+		$root = $dom->documentElement; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API property.
+
+		return null !== $root
+			&& 'svg' === $root->localName // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API property.
+			&& self::SVG_NAMESPACE === $root->namespaceURI; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- DOM API property.
+	}
+
+	/**
+	 * Whether the document has any processing instruction node.
+	 *
+	 * The XML declaration is not a node, so it is not affected.
+	 *
+	 * @param \DOMDocument $dom Parsed document.
+	 * @return bool
+	 */
+	private static function has_processing_instruction( \DOMDocument $dom ): bool {
+		$nodes = ( new \DOMXPath( $dom ) )->query( '//processing-instruction()' );
+
+		return false === $nodes || $nodes->length > 0;
 	}
 
 	/**

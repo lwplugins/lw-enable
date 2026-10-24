@@ -89,6 +89,7 @@ final class SanitizerTest extends TestCase {
 	public static function provide_disallowed_structures(): array {
 		$ns  = 'xmlns="http://www.w3.org/2000/svg"';
 		$alt = 'xmlns:s="http://www.w3.org/2000/svg"';
+		$xh  = 'xmlns:h="http://www.w3.org/1999/xhtml"';
 
 		return array(
 			'script with spaced end tag'      => array( "<svg {$ns}><script>1</script ></svg>" ),
@@ -96,6 +97,12 @@ final class SanitizerTest extends TestCase {
 			'prefixed script element'         => array( "<svg {$ns} {$alt}><s:script>1</s:script ></svg>" ),
 			'foreignObject element'           => array( "<svg {$ns}><foreignObject/></svg>" ),
 			'control char in href scheme'     => array( "<svg {$ns}><a href=\"java&#x09;script:void(0)\"><rect width=\"1\" height=\"1\"/></a></svg>" ),
+			'prefixed iframe element'         => array( "<svg {$ns} {$xh}><h:iframe/></svg>" ),
+			'prefixed object element'         => array( "<svg {$ns} {$xh}><h:object/></svg>" ),
+			'prefixed embed element'          => array( "<svg {$ns} {$xh}><h:embed/></svg>" ),
+			'control char in object data'     => array( "<svg {$ns} {$xh}><h:object data=\"java&#x09;script:1\"/></svg>" ),
+			'stylesheet instruction'          => array( "<?xml-stylesheet type=\"text/css\" href=\"s.css\"?><svg {$ns}></svg>" ),
+			'non-svg root'                    => array( "<html {$xh}><!-- <svg></svg> --></html>" ),
 		);
 	}
 
