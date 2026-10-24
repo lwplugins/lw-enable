@@ -21,7 +21,7 @@ final class Sanitizer {
 	 */
 	private const PATTERNS = array(
 		// Script tags and JavaScript.
-		'/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mi',
+		'/<\s*(?:[\w.-]+:)?script\b/i',
 		'/<[\w:]+:script\b/i',
 		'/<\w+\s[^>]*script\w*\s*=/i',
 		'/javascript:/i',
@@ -169,7 +169,7 @@ final class Sanitizer {
 			$flags  = LIBXML_PARSEHUGE | LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_NOCDATA;
 			$result = $dom->loadXML( $content, $flags );
 
-			return false !== $result && empty( libxml_get_errors() );
+			return false !== $result && empty( libxml_get_errors() ) && DomInspector::is_safe( $dom );
 		} catch ( \Exception $e ) {
 			return false;
 		} finally {

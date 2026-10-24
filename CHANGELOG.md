@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.5] - 2026-10-24
+
+### Fixed
+- Stricter validation of uploaded SVG content.
+
 ## [1.1.4] - 2026-10-03
 
 ### Fixed

@@ -73,4 +73,38 @@ final class SanitizerTest extends TestCase {
 			'inline style'       => array( "<svg {$ns}><style>a{background:url(1)}</style></svg>" ),
 		);
 	}
+
+	/**
+	 * Content that must be rejected by the element/attribute check.
+	 *
+	 * @dataProvider provide_disallowed_structures
+	 */
+	public function test_rejects_disallowed_structure( string $svg ): void {
+		$this->assertFalse( Sanitizer::is_valid( $svg ) );
+	}
+
+	/**
+	 * @return array<string, array{0: string}>
+	 */
+	public static function provide_disallowed_structures(): array {
+		$ns  = 'xmlns="http://www.w3.org/2000/svg"';
+		$alt = 'xmlns:s="http://www.w3.org/2000/svg"';
+
+		return array(
+			'script with spaced end tag'      => array( "<svg {$ns}><script>1</script ></svg>" ),
+			'script without attributes'       => array( "<svg {$ns}><script/></svg>" ),
+			'prefixed script element'         => array( "<svg {$ns} {$alt}><s:script>1</s:script ></svg>" ),
+			'foreignObject element'           => array( "<svg {$ns}><foreignObject/></svg>" ),
+			'control char in href scheme'     => array( "<svg {$ns}><a href=\"java&#x09;script:void(0)\"><rect width=\"1\" height=\"1\"/></a></svg>" ),
+		);
+	}
+
+	public function test_accepts_a_plain_svg_with_local_link(): void {
+		$svg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 10 10">'
+			. '<defs><rect id="r" width="10" height="10" fill="#000"/></defs>'
+			. '<a href="#r"><use xlink:href="#r"/></a>'
+			. '<path d="M0 0 L10 10" stroke="#333"/></svg>';
+
+		$this->assertTrue( Sanitizer::is_valid( $svg ) );
+	}
 }
